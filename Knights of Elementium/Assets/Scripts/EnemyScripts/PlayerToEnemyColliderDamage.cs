@@ -32,6 +32,7 @@ public class PlayerToEnemyColliderDamage : MonoBehaviour
         {
             Enemy.GetComponent<EnemyHealth>().TakeDamage(PlayerDamage - Enemy.GetComponent<EnemyHealth>().Armor); // Deals Damage to Enemy after Player's weapon collides with Enemy
             ShowDamage((PlayerDamage - Enemy.GetComponent<EnemyHealth>().Armor).ToString());
+            Enemy.GetComponent<Enemy_behavior>().PlayerKnockback();
         }
         if (collision.CompareTag("PlayerEarthSpellCollider")) // Player to Enemy Earth Spell Damage from collider on prefab asset
         {
