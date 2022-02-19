@@ -17,5 +17,11 @@ public class RootKnight : EnemyBase
         base.Start();
 
         moveState = new RK_moveState(this, stateMachine, "move", moveStateData, this);
+        idleState = new RK_idleState(this, stateMachine, "idle", idleStateData, this);
+
+        //this line starts the root knight in the move state
+        stateMachine.Initialize(moveState);
+
+
     }
 }
