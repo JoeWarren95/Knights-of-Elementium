@@ -21,6 +21,10 @@ public class EnemyHealth : MonoBehaviour
     public int Weight;
     public int StaggerTime;
     public bool Staggered;
+    public int EarthPower;
+    public int FirePower;
+    public int WaterPower;
+    public int LightningPower;
     public int EarthResistance;
     public int FireResistance;
     public int WaterResistance;
@@ -36,6 +40,14 @@ public class EnemyHealth : MonoBehaviour
         Strength = 1;
         StaggerTime = 2;
         Weight = 1;
+        EarthPower = 20;
+        FirePower = 0;
+        WaterPower = 0;
+        LightningPower = 0;
+        EarthResistance = 20;
+        FireResistance = -20;
+        WaterResistance = 5;
+        LightningResistance = 5;
     }
 
     public void Revitalize ()
@@ -159,6 +171,8 @@ public class EnemyHealth : MonoBehaviour
 
         currentHealth = maxHealth;
         Healthbar.SetHealth(currentHealth, maxHealth);
+
+        animator.SetBool("canWalk", true); // set true that enemy can walk
 
     }
 
