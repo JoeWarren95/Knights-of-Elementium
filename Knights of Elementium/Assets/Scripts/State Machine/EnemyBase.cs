@@ -34,6 +34,8 @@ public class EnemyBase : MonoBehaviour
         //determines which way the knight faces at the start
         facingDirection = 1;
 
+        //double check the GameObject attached to this enemy is called "Alive"
+        //otherwise you'll get a NullReferenceException
         aliveGO = transform.Find("Alive").gameObject;
         rb = aliveGO.GetComponent<Rigidbody2D>();
         anim = aliveGO.GetComponent<Animator>();
@@ -69,7 +71,8 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void Flip()
     {
-        facingDirection *= 1;
+        //TODO: May need to check if multiplying by -1 is right
+        facingDirection *= -1;
         aliveGO.transform.Rotate(0f, 180f, 0f);
     }
 

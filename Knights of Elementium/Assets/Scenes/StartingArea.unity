@@ -692,7 +692,7 @@ GameObject:
   - component: {fileID: 156957174}
   - component: {fileID: 156957176}
   - component: {fileID: 156957175}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InternalTileMap
   m_TagString: ProjectileCollider
   m_Icon: {fileID: 0}
@@ -4563,30 +4563,16 @@ CompositeCollider2D:
         Y: 289300000
       - X: 698899968
         Y: 290000000
-      - X: 610000100
+      - X: 551000000
         Y: 290000000
-      - X: 610000100
-        Y: 290000041
-      - X: 610000041
-        Y: 290000100
-      - X: 550999978
-        Y: 290000100
-      - X: 550999937
-        Y: 290000081
-      - X: 549999912
-        Y: 288800051
-      - X: 549999900
-        Y: 288800018
-      - X: 549999900
-        Y: 200699974
-      - X: 549999925
-        Y: 200699929
-      - X: 551099990
-        Y: 199999908
-      - X: 551100018
-        Y: 199999900
+      - X: 550000000
+        Y: 288800000
+      - X: 550000000
+        Y: 200700000
+      - X: 551100032
+        Y: 200000000
       - X: 610000000
-        Y: 199999900
+        Y: 200000000
       - X: 610000000
         Y: 110700000
       - X: 611100032
@@ -4615,6 +4601,42 @@ CompositeCollider2D:
         Y: 80000000
       - X: 518900000
         Y: 80000000
+    - - X: 970000000
+        Y: 20000000
+      - X: 940000000
+        Y: 20000000
+      - X: 940000000
+        Y: 50000000
+      - X: 821000000
+        Y: 50000000
+      - X: 820000000
+        Y: 48800000
+      - X: 820000000
+        Y: 20000000
+      - X: 791000000
+        Y: 20000000
+      - X: 790000000
+        Y: 18800000
+      - X: 790000000
+        Y: -10000000
+      - X: 761000000
+        Y: -10000000
+      - X: 760000000
+        Y: -11200000
+      - X: 760000000
+        Y: -40000000
+      - X: 641000000
+        Y: -40000000
+      - X: 640000000
+        Y: -41200000
+      - X: 640000000
+        Y: -70000000
+      - X: 790000000
+        Y: -70000000
+      - X: 790000000
+        Y: -100000000
+      - X: 970000000
+        Y: -100000000
     - - X: 520000000
         Y: -10000000
       - X: 550000000
@@ -4669,42 +4691,6 @@ CompositeCollider2D:
         Y: -160000000
       - X: 520000000
         Y: -160000000
-    - - X: 970000000
-        Y: 20000000
-      - X: 940000000
-        Y: 20000000
-      - X: 940000000
-        Y: 50000000
-      - X: 821000000
-        Y: 50000000
-      - X: 820000000
-        Y: 48800000
-      - X: 820000000
-        Y: 20000000
-      - X: 791000000
-        Y: 20000000
-      - X: 790000000
-        Y: 18800000
-      - X: 790000000
-        Y: -10000000
-      - X: 761000000
-        Y: -10000000
-      - X: 760000000
-        Y: -11200000
-      - X: 760000000
-        Y: -40000000
-      - X: 641000000
-        Y: -40000000
-      - X: 640000000
-        Y: -41200000
-      - X: 640000000
-        Y: -70000000
-      - X: 790000000
-        Y: -70000000
-      - X: 790000000
-        Y: -100000000
-      - X: 970000000
-        Y: -100000000
     - - X: -470000000
         Y: 20000000
       - X: -680000000
@@ -4765,11 +4751,11 @@ CompositeCollider2D:
       - {x: 70, y: 23.000029}
       - {x: 69.999985, y: 28.930006}
       - {x: 69.88999, y: 29}
-      - {x: 55.099987, y: 29}
-      - {x: 54.99999, y: 28.879993}
-      - {x: 55.000008, y: 20.069986}
-      - {x: 55.110012, y: 19.99999}
-      - {x: 61, y: 19.99996}
+      - {x: 55.099995, y: 28.99999}
+      - {x: 55, y: 28.879992}
+      - {x: 55.000015, y: 20.069992}
+      - {x: 55.110012, y: 20}
+      - {x: 61, y: 19.999971}
       - {x: 61.000015, y: 11.069992}
       - {x: 61.110012, y: 11}
       - {x: 64, y: 10.99997}
@@ -6107,7 +6093,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360383679}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.552, y: 0, z: 0}
+  m_LocalPosition: {x: 1.634, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1941491253}
@@ -6146,7 +6132,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -4.951294, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6465,7 +6451,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401308322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.894, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1941491253}
@@ -6481,7 +6467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421226286}
   - component: {fileID: 421226285}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InternalDarkGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6850,7 +6836,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486986171}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 96.28, y: 5.13, z: -1.1}
+  m_LocalPosition: {x: -4.9, y: 20.01, z: -1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1117673157}
@@ -7923,7 +7909,7 @@ GameObject:
   - component: {fileID: 578339794}
   - component: {fileID: 578339793}
   - component: {fileID: 578339792}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DayNightTileMap
   m_TagString: ProjectileCollider
   m_Icon: {fileID: 0}
@@ -11307,7 +11293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 638760823}
   - component: {fileID: 638760822}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InternalGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11941,7 +11927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &762263010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12629,7 +12615,7 @@ Transform:
   m_LocalScale: {x: 1.5121689, y: 1.2493, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -33.7}
 --- !u!1 &900607099
 GameObject:
@@ -12918,7 +12904,7 @@ GameObject:
   - component: {fileID: 959264078}
   - component: {fileID: 959264077}
   - component: {fileID: 959264076}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InternalDarkTileMap
   m_TagString: ProjectileCollider
   m_Icon: {fileID: 0}
@@ -14555,7 +14541,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15572,7 +15558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1457636724}
   - component: {fileID: 1457636723}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: OutsideGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18547,7 +18533,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1871613939
 CircleCollider2D:
@@ -19170,7 +19156,7 @@ GameObject:
   - component: {fileID: 1941491255}
   - component: {fileID: 1941491254}
   m_Layer: 6
-  m_Name: AliveKnight
+  m_Name: Alive
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19257,7 +19243,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.84433365, y: -0.02319622}
+  m_Offset: {x: 0.8032875, y: -0.02319622}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.495}
@@ -19268,7 +19254,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8788719, y: 3.468954}
+  m_Size: {x: 0.9609642, y: 3.468954}
   m_EdgeRadius: 0
 --- !u!95 &1941491256
 Animator:
@@ -19305,7 +19291,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ffda691260aec9e4594e689867049800, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -19880,7 +19866,7 @@ Transform:
   - {fileID: 1722831772}
   - {fileID: 490678402}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -3.414}
 --- !u!1001 &2030915065
 PrefabInstance:
