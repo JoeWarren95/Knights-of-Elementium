@@ -5,8 +5,9 @@ using UnityEngine;
 public class Enemy_behavior : MonoBehaviour
 {
     #region Public Variables
-    public float attackDistance; //Within this range, enemy will attack player
-    public float closeattackDistance; //Within this range, enemy will slam player
+    public float closeattackDistance; //Within this range, enemy will aoe gas player
+    public float attackDistance; //Within this range, enemy will swing arm at player
+    public float LongattackDistance; // Within this range, enemy will fire projectile at player
     public float moveSpeed;
     public float timer; //Timer for cooldown btwn attacks
     public Transform leftLimit;
@@ -21,6 +22,13 @@ public class Enemy_behavior : MonoBehaviour
     public bool CantDamage;
     public int EnemyDamage;
     public int StaggerPower;
+    //Enemy Spellcasting
+    public Transform CastPoint;
+    public GameObject EnemyEarthBall;
+    public int direction;
+    public float RangedCooldown;
+    public bool JustUsedRanged;
+    public Rigidbody2D rb;
     #endregion
 
     #region Private Variables
@@ -38,15 +46,31 @@ public class Enemy_behavior : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    void Start()
+    {
+        direction = 2;
+        RangedCooldown = 3;
+        rb = GetComponent<Rigidbody2D>();
+    }
+
         void Update() 
     {
+        if (JustUsedRanged == true)
+        {
+            RangedCooldown -= 1 * Time.deltaTime;
+        }
 
+        if (RangedCooldown <= 0)
+        {
+            RangedCooldown = 3;
+            JustUsedRanged = false;
+        }
         if (!attackMode)
         {
             StartCoroutine(Move());
         }
 
-        if(!InsideofLimits() && !inRange && !anim.GetCurrentAnimatorStateInfo(0).IsName("Nymph_Attack") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Gas_Attack"))
+        if(!InsideofLimits() && !inRange && !anim.GetCurrentAnimatorStateInfo(0).IsName("Nymph_Attack") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Gas_Attack") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Projectile_Attack"))
         {
             SelectTarget();
         }
@@ -56,7 +80,7 @@ public class Enemy_behavior : MonoBehaviour
             EnemyLogic();
         }
 
-        if(distance > attackDistance) // stop chasing & resume patrolling if Player is beyond attack distance
+        if (distance > LongattackDistance) // stop chasing & resume patrolling if Player is beyond attack distance
         {
             StopAttack();
         }
@@ -65,31 +89,42 @@ public class Enemy_behavior : MonoBehaviour
     {
         distance = Vector2.Distance(transform.position, target.position);
 
-            if(distance > attackDistance)
+            if(distance > LongattackDistance)
         {
             StopAttack();
         }
-        else if(attackDistance >= distance && cooling == false && closeattackDistance <= distance) // swing attack being determined by outer radius
+            else if (distance > closeattackDistance && anim.GetCurrentAnimatorStateInfo(0).IsName("Nymph_Gas"))
+        {
+            StopGasAttack();
+        }
+        
+        else if(attackDistance > distance && cooling == false && closeattackDistance < distance) // swing attack being determined by outer radius
         {
             StartCoroutine(Attack());
         }
         
-        else if(closeattackDistance >= distance && cooling == false) // gas attack being determined by inner radius
+        else if(closeattackDistance > distance && cooling == false) // gas attack being determined by inner radius
         {
             StartCoroutine(GasAttack());
         }
-       
-            if (cooling)
+
+        else if (distance > attackDistance && distance < LongattackDistance && JustUsedRanged == false && distance > closeattackDistance) // Fire Projectile Attack!
+        {
+            StartCoroutine(ProjectileAttack());
+        }
+
+        if (cooling)
         {
             Cooldown();
             anim.SetBool("Attack", false);
             anim.SetBool("GasAttack", false);
+            anim.SetBool("Projectile", false);
         }
     }
 
     IEnumerator Move()
         {
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Nymph_Attack") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Nymph_Gas")) // if not playing attack animation
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Nymph_Attack") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Nymph_Gas") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Projectile")) // if not playing attack animation
             {
                 anim.SetBool("canWalk", true); // set true that enemy can walk
                 
@@ -107,21 +142,57 @@ public class Enemy_behavior : MonoBehaviour
         {
             attackMode = true; // To check if Enemy can still attack or not
             CantDamage = false;
-            anim.SetBool("canWalk", false);
             anim.SetBool("Attack", true); // Plays Enemy Attack Animation that carries collider
             yield return new WaitForSeconds(0f);
         }
     }
+    
     IEnumerator GasAttack()
     {
         attackMode = true; // To check if Enemy can still attack or not
         CantDamage = false;
-        anim.SetBool("canWalk", false);
         anim.SetBool("GasAttack", true); // Plays Enemy Slam Attack Animation that carries collider
         yield return new WaitForSeconds(0f);
     }
 
-        void Cooldown()
+    IEnumerator ProjectileAttack()
+    {
+        attackMode = true; // To check if Enemy can still attack or not
+        CantDamage = false;
+        JustUsedRanged = true;
+        anim.SetBool("Projectile", true); // Plays Enemy Projectile Launch Animation
+        yield return new WaitForSeconds(0f);
+    }
+
+    public void LaunchProjectile()
+    {
+        Instantiate(EnemyEarthBall, CastPoint.position, CastPoint.rotation);
+    }
+    public void CantMove ()
+    {
+        moveSpeed = 0f;
+        anim.SetBool("canWalk", false);
+    }
+    public void PlayerKnockback()
+    {
+        if (MainPlayer.GetComponent<DashMove>().direction == 1)
+        {
+            rb.velocity = Vector2.left * (0.40f * MainPlayer.GetComponent<PlayerAttributes>().Strength - ParentEnemy.GetComponent<EnemyHealth>().Weight);
+            Debug.Log("Dash to left!");
+        }
+        if (MainPlayer.GetComponent<DashMove>().direction == 2)
+        {
+            rb.velocity = Vector2.right * (0.40f * MainPlayer.GetComponent<PlayerAttributes>().Strength - ParentEnemy.GetComponent<EnemyHealth>().Weight);
+            Debug.Log("Dash to right!");
+        }
+    }
+    public void CanMove ()
+    {
+        moveSpeed = 3f;
+        anim.SetBool("canWalk", true);
+    }
+
+    void Cooldown()
         {
             timer -= Time.deltaTime;
 
@@ -138,6 +209,8 @@ public class Enemy_behavior : MonoBehaviour
             attackMode = false;
             anim.SetBool("Attack", false);
             anim.SetBool("GasAttack", false);
+            anim.SetBool("Projectile", false);
+            anim.SetBool("canWalk", true);
     }
 
         void StopAttack()
@@ -148,6 +221,7 @@ public class Enemy_behavior : MonoBehaviour
             attackMode = false;
             anim.SetBool("Attack", false);
             anim.SetBool("GasAttack", false);
+            anim.SetBool("Projectile", false);
         }
         }
         void StopGasAttack()
@@ -190,10 +264,12 @@ public class Enemy_behavior : MonoBehaviour
             if(transform.position.x < target.position.x)
             {
             rotation.y = 180f;
-        }
+            direction = 2;
+            }
             else
             {
-                rotation.y = 0f;         
+            rotation.y = 0f;
+            direction = 1;
             }
 
             transform.eulerAngles = rotation;
