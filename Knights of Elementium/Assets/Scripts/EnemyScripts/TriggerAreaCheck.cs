@@ -6,6 +6,7 @@ public class TriggerAreaCheck : MonoBehaviour {
 
     private Enemy_behavior enemyParent;
     public GameObject Player;
+    public Animator animator;
 
     private void Awake()
     {
@@ -21,7 +22,7 @@ public class TriggerAreaCheck : MonoBehaviour {
             enemyParent.inRange = true;
             enemyParent.hotZone.SetActive(true);
             Player.GetComponent<PlayerHealth>().InCombat = true;
+            animator.SetBool("canWalk", true); // set true that enemy can walk
         }
-    }
-    
+    }    
 }
