@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RK_idleState : IdleState
+public class RK_playerDetectedState : PlayerDetectedState
 {
-    //get reference to individual enemy
     private RootKnight knight;
 
-    public RK_idleState(EnemyBase enemy, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData, RootKnight knight) : base(enemy, stateMachine, animBoolName, stateData)
+    public RK_playerDetectedState(EnemyBase enemy, FiniteStateMachine stateMachine, string animBoolName, D_PlayerDetectedState stateData, RootKnight knight) : base(enemy, stateMachine, animBoolName, stateData)
     {
         this.knight = knight;
     }
@@ -26,13 +25,11 @@ public class RK_idleState : IdleState
     {
         base.LogicUpdate();
 
-        if (isPlayerInMinAgroRange)
+        if (!isPlayerInMaxAgroRange)
         {
-            stateMachine.ChangeState(knight.playerDetectedState);
+            knight.idleState.setFlipAfterIdle(false);
+            stateMachine.ChangeState(knight.idleState);
         }
-
-        if (isIdleTimeOver)
-            stateMachine.ChangeState(knight.moveState);
     }
 
     public override void PhysicsUpdate()

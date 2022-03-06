@@ -8,6 +8,7 @@ public class MoveState : State
 
     protected bool isDetectingWall;
     protected bool isDetectingLedge;
+    protected bool isPlayerInMinAgroRange;
 
     // This is the base script for enemy movement
     public MoveState(EnemyBase enemy, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData) : base(enemy, stateMachine, animBoolName)
@@ -22,6 +23,7 @@ public class MoveState : State
 
         isDetectingLedge = enemy.CheckLedge();
         isDetectingWall = enemy.CheckWall();
+        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
     }
 
     public override void Exit()
@@ -40,5 +42,7 @@ public class MoveState : State
 
         isDetectingLedge = enemy.CheckLedge();
         isDetectingWall = enemy.CheckWall();
+        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+
     }
 }

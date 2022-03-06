@@ -23,6 +23,8 @@ public class EnemyBase : MonoBehaviour
     private Transform wallCheck;
     [SerializeField]
     private Transform ledgeCheck;
+    [SerializeField]
+    private Transform playerCheck;
 
     //use this whenever we need to create a vector2 somewhere
     private Vector2 velocityWorkSpace;
@@ -67,6 +69,23 @@ public class EnemyBase : MonoBehaviour
     public virtual bool CheckLedge()
     {
         return Physics2D.Raycast(ledgeCheck.position, Vector2.down, enemyData.ledgeCheckDistance, enemyData.whatIsGround);
+    }
+
+
+    //3 agro range functions to determine detection raycast lengths
+    public virtual bool CheckPlayerInMinAgroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, enemyData.minAgroDistance, enemyData.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInMidAgroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, enemyData.midAgroDistance, enemyData.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInMaxAgroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, enemyData.maxAgroDistance, enemyData.whatIsPlayer);
     }
 
     public virtual void Flip()
