@@ -7,6 +7,7 @@ public class EnemyBase : MonoBehaviour
     //this is the base script all enemies will inherit
 
     #region public variables
+    //references to my other scripts
     public FiniteStateMachine stateMachine;
     public D_Enemy enemyData;
 
@@ -23,6 +24,8 @@ public class EnemyBase : MonoBehaviour
     private Transform wallCheck;
     [SerializeField]
     private Transform ledgeCheck;
+    [SerializeField]
+    private Transform playerCheck;
 
     //use this whenever we need to create a vector2 somewhere
     private Vector2 velocityWorkSpace;
@@ -59,6 +62,7 @@ public class EnemyBase : MonoBehaviour
         rb.velocity = velocityWorkSpace;
     }
 
+    //right now everything is labeled as a ground, so it's detecting everything as ground 
     public virtual bool CheckWall()
     {
         return Physics2D.Raycast(wallCheck.position, aliveGO.transform.right, enemyData.wallCheckDistance, enemyData.whatIsGround);
@@ -67,6 +71,23 @@ public class EnemyBase : MonoBehaviour
     public virtual bool CheckLedge()
     {
         return Physics2D.Raycast(ledgeCheck.position, Vector2.down, enemyData.ledgeCheckDistance, enemyData.whatIsGround);
+    }
+
+
+    //3 agro range functions to determine detection raycast lengths
+    public virtual bool CheckPlayerInMinAgroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, enemyData.minAgroDistance, enemyData.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInMidAgroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, enemyData.midAgroDistance, enemyData.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInMaxAgroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, enemyData.maxAgroDistance, enemyData.whatIsPlayer);
     }
 
     public virtual void Flip()
@@ -81,5 +102,9 @@ public class EnemyBase : MonoBehaviour
         //this is so we can see the wall/ledge checks
         Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.wallCheckDistance));
         Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * enemyData.ledgeCheckDistance));
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(playerCheck.position, playerCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.maxAgroDistance));
+
     }
 }

@@ -25,7 +25,12 @@ public class RK_moveState : MoveState
     {
         base.LogicUpdate();
 
-        if(isDetectingWall || !isDetectingLedge)
+        if (isPlayerInMinAgroRange)
+        {
+            //accessing the base root knight script
+            stateMachine.ChangeState(knight.playerDetectedState);
+        }
+        else if(isDetectingWall || !isDetectingLedge)
         {
             knight.idleState.setFlipAfterIdle(true);
             stateMachine.ChangeState(knight.idleState);
