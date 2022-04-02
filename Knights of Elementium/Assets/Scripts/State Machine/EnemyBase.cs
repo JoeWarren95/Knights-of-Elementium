@@ -7,6 +7,7 @@ public class EnemyBase : MonoBehaviour
     //this is the base script all enemies will inherit
 
     #region public variables
+    //references to my other scripts
     public FiniteStateMachine stateMachine;
     public D_Enemy enemyData;
 
@@ -61,6 +62,7 @@ public class EnemyBase : MonoBehaviour
         rb.velocity = velocityWorkSpace;
     }
 
+    //right now everything is labeled as a ground, so it's detecting everything as ground 
     public virtual bool CheckWall()
     {
         return Physics2D.Raycast(wallCheck.position, aliveGO.transform.right, enemyData.wallCheckDistance, enemyData.whatIsGround);
@@ -100,5 +102,9 @@ public class EnemyBase : MonoBehaviour
         //this is so we can see the wall/ledge checks
         Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.wallCheckDistance));
         Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * enemyData.ledgeCheckDistance));
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(playerCheck.position, playerCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.maxAgroDistance));
+
     }
 }

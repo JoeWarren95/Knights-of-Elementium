@@ -20,12 +20,13 @@ public class PlayerDetectedState : State
     {
         base.Enter();
 
+        //FOR TESTING set enemy to stop once player is detected
         enemy.SetVelocity(0f);
         Debug.Log("I can see you now");
 
+        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
         isPlayerInMidAgroRange = enemy.CheckPlayerInMidAgroRange();
-        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
     }
 
     public override void Exit()
@@ -42,8 +43,8 @@ public class PlayerDetectedState : State
     {
         base.PhysicsUpdate();
 
+        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
         isPlayerInMidAgroRange = enemy.CheckPlayerInMidAgroRange();
-        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
     }
 }

@@ -31,7 +31,7 @@ public class RK_idleState : IdleState
             stateMachine.ChangeState(knight.playerDetectedState);
         }
 
-        if (isIdleTimeOver)
+        else if (isIdleTimeOver)
             stateMachine.ChangeState(knight.moveState);
     }
 

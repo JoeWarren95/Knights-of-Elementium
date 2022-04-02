@@ -8,7 +8,9 @@ public class MoveState : State
 
     protected bool isDetectingWall;
     protected bool isDetectingLedge;
+    //protected bool isPlayerInMaxAgroRange;
     protected bool isPlayerInMinAgroRange;
+
 
     // This is the base script for enemy movement
     public MoveState(EnemyBase enemy, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData) : base(enemy, stateMachine, animBoolName)
@@ -23,7 +25,11 @@ public class MoveState : State
 
         isDetectingLedge = enemy.CheckLedge();
         isDetectingWall = enemy.CheckWall();
+
+        //check to see if player is in the max agro range
+        //isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+
     }
 
     public override void Exit()
@@ -42,7 +48,10 @@ public class MoveState : State
 
         isDetectingLedge = enemy.CheckLedge();
         isDetectingWall = enemy.CheckWall();
+        //isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
+
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+
 
     }
 }
