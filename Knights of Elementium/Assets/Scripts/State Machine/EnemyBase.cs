@@ -6,10 +6,17 @@ public class EnemyBase : MonoBehaviour
 {
     //this is the base script all enemies will inherit
 
+    //need to create a zone for each enemy, as well as a distance
+    //check between the player and the enemy, this will determine what 
+    //attack they use whether it be short, long, heavy, or light
+    //may need to add a check for if player is on the same level or not
+
     #region public variables
     //references to my other scripts
     public FiniteStateMachine stateMachine;
     public D_Enemy enemyData;
+
+    public bool playerInRange;
 
     public int facingDirection { get; private set; }
 
@@ -73,8 +80,19 @@ public class EnemyBase : MonoBehaviour
         return Physics2D.Raycast(ledgeCheck.position, Vector2.down, enemyData.ledgeCheckDistance, enemyData.whatIsGround);
     }
 
+    //this is where the enemy will check if the player is in range for attack
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            playerInRange = true;
+        }
+    }
+
+
 
     //3 agro range functions to determine detection raycast lengths
+    //may replace with hot zone script
     public virtual bool CheckPlayerInMinAgroRange()
     {
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, enemyData.minAgroDistance, enemyData.whatIsPlayer);
