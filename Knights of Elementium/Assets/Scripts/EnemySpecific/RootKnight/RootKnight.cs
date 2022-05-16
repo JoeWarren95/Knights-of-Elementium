@@ -26,6 +26,5 @@ public class RootKnight : EnemyBase
         //this line starts the root knight in the move state
         stateMachine.Initialize(moveState);
 
-
     }
 }

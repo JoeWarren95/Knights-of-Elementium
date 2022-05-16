@@ -6,6 +6,8 @@ public class EnemyBase : MonoBehaviour
 {
     //this is the base script all enemies will inherit
 
+
+    
     #region public variables
     //references to my other scripts
     public FiniteStateMachine stateMachine;
@@ -27,8 +29,15 @@ public class EnemyBase : MonoBehaviour
     [SerializeField]
     private Transform playerCheck;
 
+
     //use this whenever we need to create a vector2 somewhere
     private Vector2 velocityWorkSpace;
+
+    //need to create a box collider to act as the detection zone for all enemies
+    private BoxCollider2D playerDetectionZone;
+
+    //setting the target for when the player is in range
+    private Transform target = null;
 
     #endregion
 
@@ -42,6 +51,9 @@ public class EnemyBase : MonoBehaviour
         aliveGO = transform.Find("Alive").gameObject;
         rb = aliveGO.GetComponent<Rigidbody2D>();
         anim = aliveGO.GetComponent<Animator>();
+
+        //Create the detection zone of each enemy once the game starts
+        playerDetectionZone = gameObject.AddComponent<BoxCollider2D>() as BoxCollider2D;
 
         stateMachine = new FiniteStateMachine();
     }
@@ -90,11 +102,27 @@ public class EnemyBase : MonoBehaviour
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, enemyData.maxAgroDistance, enemyData.whatIsPlayer);
     }
 
+    public virtual bool CheckPlayerInCloseRangeAttack()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, enemyData.closeRangeAttackDistance, enemyData.whatIsPlayer);
+    }
+
     public virtual void Flip()
     {
         //TODO: May need to check if multiplying by -1 is right
         facingDirection *= -1;
         aliveGO.transform.Rotate(0f, 180f, 0f);
+    }
+
+    //Player detection
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player") target = other.transform;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player") target = null;
     }
 
     public virtual void OnDrawGizmos()

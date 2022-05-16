@@ -39,7 +39,13 @@ public class State
 
     public virtual void PhysicsUpdate()
     {
+        DoChecks();
+    }
 
+    public virtual void DoChecks()
+    {
+        //this is a base class that will be called whenever we need
+        //to do basic enemy checks such as wallcheck,ledgecheck,playercheck, etc.
     }
     
 }

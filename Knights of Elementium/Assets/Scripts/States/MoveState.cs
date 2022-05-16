@@ -18,10 +18,9 @@ public class MoveState : State
         this.stateData = stateData;
     }
 
-    public override void Enter()
+    public override void DoChecks()
     {
-        base.Enter();
-        enemy.SetVelocity(stateData.movementSpeed);
+        base.DoChecks();
 
         isDetectingLedge = enemy.CheckLedge();
         isDetectingWall = enemy.CheckWall();
@@ -29,6 +28,12 @@ public class MoveState : State
         //check to see if player is in the max agro range
         //isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        enemy.SetVelocity(stateData.movementSpeed);
 
     }
 
@@ -45,13 +50,5 @@ public class MoveState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-
-        isDetectingLedge = enemy.CheckLedge();
-        isDetectingWall = enemy.CheckWall();
-        //isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
-
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
-
-
     }
 }

@@ -2,18 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargeState : State
+public class AttackState : State
 {
-    protected D_ChargeState stateData;
+    protected Transform attackPosition;
 
-    public ChargeState(EnemyBase enemy, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState stateData) : base(enemy, stateMachine, animBoolName)
+    public AttackState(EnemyBase enemy, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition) : base(enemy, stateMachine, animBoolName)
     {
-        this.stateData = stateData;
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
+        this.attackPosition = attackPosition;
     }
 
     public override void Enter()
