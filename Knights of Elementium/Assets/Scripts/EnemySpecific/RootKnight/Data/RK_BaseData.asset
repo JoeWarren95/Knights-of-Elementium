@@ -16,4 +16,4 @@ MonoBehaviour:
   ledgeCheckDistance: 0.4
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 1
