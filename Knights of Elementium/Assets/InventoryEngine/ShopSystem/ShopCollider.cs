@@ -23,7 +23,7 @@ public class ShopCollider : MonoBehaviour
         DialogueOption1.SetActive(false);
         DialogueOption2.SetActive(false);
         PlayerInRange = false;
-        ShopkeeperDialogue.text = "Wanna get fucked?";
+        ShopkeeperDialogue.text = "Kreol?";
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -34,9 +34,9 @@ public class ShopCollider : MonoBehaviour
             //ShoppingSystem.SetActive(false);
             DialogueSystem.SetActive(true);
             DialogueOption1.SetActive(true);
-            Option1.text = "Fuck off bitch";
+            Option1.text = "I do not understand";
             DialogueOption2.SetActive(true);
-            Option2.text = "Yes daddy";
+            Option2.text = "Do you have anything for sale?";
         }
     }
 
@@ -49,7 +49,7 @@ public class ShopCollider : MonoBehaviour
             DialogueSystem.SetActive(false);
             DialogueOption1.SetActive(false);
             DialogueOption2.SetActive(false);
-            ShopkeeperDialogue.text = "Wanna get fucked?";
+            ShopkeeperDialogue.text = "Idionox idot thaut?";
         }
     }
 }

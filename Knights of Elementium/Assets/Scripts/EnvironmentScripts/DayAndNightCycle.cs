@@ -29,9 +29,9 @@ public class DayAndNightCycle : MonoBehaviour
     {
         if (WorldClock >= 0 && WorldClock <= 24) // if it's getting brighter or darker outside
         {
-            PlayerVignette.transform.localScale = new Vector2(1.0f + 0.75f * WorldClock, 1.0f + 0.75f * WorldClock);
-            DayNightTileGrid.color = new Color(0.20f+ 0.416f * WorldClock, 0.20f + 0.416f * WorldClock, 0.20f + 0.416f * WorldClock, 1);
-            sprite.color = new Color(0.66f - 0.1f * WorldClock, 0.0f + 0.1f * WorldClock, 0.33f + 0.1f * WorldClock, 1);
+            PlayerVignette.transform.localScale = new Vector2(2.3f + 0.75f * WorldClock, 2.3f + 0.75f * WorldClock);
+            //DayNightTileGrid.color = new Color(0.20f+ 0.416f * WorldClock, 0.20f + 0.416f * WorldClock, 0.20f + 0.416f * WorldClock, 1);
+            sprite.color = new Color(1.5f - 0.1f * WorldClock, 1.5f - 0.1f * WorldClock, 1.5f - 0.1f * WorldClock, 1);
             PlayerLightRing.color = new Color(1.0f, 1.0f, 1.0f, 1.0f - 0.60f * WorldClock); // Light Ring appears in darkness & disappears in light
         }
         if (DownTick == true && Darkness == false && Luminosity == false) // 9 hours getting darker

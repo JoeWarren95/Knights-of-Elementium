@@ -12,7 +12,7 @@ public class DialogueOption1Button : MonoBehaviour
     public void OnClickEvent()
     {
         {
-            ShopkeeperDialogue.text = "Okay, bitch";
+            ShopkeeperDialogue.text = "Th'ero nok val akun";
         }
     }
 }

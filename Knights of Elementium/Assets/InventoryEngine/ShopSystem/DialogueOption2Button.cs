@@ -12,7 +12,7 @@ public class DialogueOption2Button : MonoBehaviour
     public void OnClickEvent()
     {
         {
-            ShopkeeperDialogue.text = "Okay, bend over";
+            ShopkeeperDialogue.text = "Kal Moraz id niut thaut";
         }
     }
 }
