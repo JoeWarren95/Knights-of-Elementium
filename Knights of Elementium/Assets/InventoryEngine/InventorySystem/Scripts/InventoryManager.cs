@@ -54,6 +54,7 @@ public class InventoryManager : MonoBehaviour
 
         LoadInventoryFromPrefs();
         OpenCloseInventory();
+        CloseInventory();
     }
 
     //search and return slot by ID
