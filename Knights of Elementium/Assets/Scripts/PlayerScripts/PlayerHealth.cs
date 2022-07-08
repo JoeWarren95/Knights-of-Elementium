@@ -46,6 +46,7 @@ public class PlayerHealth : MonoBehaviour
     public bool OpenBook;
     public GameObject SpellBook;
     public int CurrencyPenalty;
+    public GameObject FogWallGrid;
 
     // Start is called before the first frame update
     void Start()
@@ -204,6 +205,9 @@ public class PlayerHealth : MonoBehaviour
         animator.SetBool("IsDead", false);
         healthBar.SetHealth(currentHealth);
         Enemy.GetComponent<EnemyHealth>().Respawn();
+        RootKnight.GetComponent<KnightHealth>().Revitalize();
+        FogWallGrid.SetActive(false);
+        RootKnight.SetActive(false);
     }
     void Die() // Everything that happens/is disabled when the player dies
     {
