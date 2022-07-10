@@ -22,6 +22,7 @@ public class KnightHealth : MonoBehaviour
     public GameObject FogWallGrid;
     public GameObject RootArenaCommencer;
     public bool KnightDead;
+    public GameObject FogOfWar;
 
     // Start is called before the first frame update
 
@@ -73,6 +74,8 @@ public class KnightHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("Enemy died!");
+
+        FogOfWar.SetActive(false);
 
         KnightDead = true;
 

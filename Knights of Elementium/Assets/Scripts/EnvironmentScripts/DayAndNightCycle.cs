@@ -8,7 +8,7 @@ public class DayAndNightCycle : MonoBehaviour
     public SpriteRenderer sprite; // Sky Background and whatever else I want to change with time
     public SpriteRenderer PlayerLightRing;
     public GameObject PlayerVignette;
-    public Tilemap DayNightTileGrid;
+    //public Tilemap DayNightTileGrid;
     public float WorldClock;
     public bool DownTick;
     public bool UpTick;
