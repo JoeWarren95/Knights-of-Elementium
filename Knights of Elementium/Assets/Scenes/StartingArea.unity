@@ -752,8 +752,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1772560907
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 1, y: 1, z: 0}
@@ -5018,7 +5018,7 @@ SpriteRenderer:
   m_Size: {x: 11.02, y: 4.61}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &179029035
@@ -7184,6 +7184,8 @@ MonoBehaviour:
   OpenBook: 0
   SpellBook: {fileID: 341082950}
   CurrencyPenalty: 0
+  FogWallGrid: {fileID: 0}
+  FogOfWar: {fileID: 0}
 --- !u!114 &486986182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8264,8 +8266,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1772560907
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 1, y: 1, z: 0}
@@ -10998,7 +11000,7 @@ SpriteRenderer:
   m_Size: {x: 75.71, y: 98.32218}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &608178980
@@ -11615,7 +11617,7 @@ SpriteRenderer:
   m_Size: {x: 144.34, y: 121.15256}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &682343933
@@ -12109,6 +12111,10 @@ MonoBehaviour:
   FireResistance: -10
   WaterResistance: 0
   LightningResistance: 0
+  FogWallGrid: {fileID: 0}
+  RootArenaCommencer: {fileID: 0}
+  KnightDead: 0
+  FogOfWar: {fileID: 0}
 --- !u!212 &762263015
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12561,7 +12567,7 @@ SpriteRenderer:
   m_Size: {x: 99.3, y: 94.20894}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &889426493
@@ -12659,7 +12665,7 @@ SpriteRenderer:
   m_Size: {x: 21.55001, y: 24.17}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &899055411
@@ -13021,8 +13027,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1772560907
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 1, y: 1, z: 0}
@@ -14239,7 +14245,7 @@ SpriteRenderer:
   m_Size: {x: 97.75921, y: 58.14}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1075017973
@@ -14871,7 +14877,7 @@ SpriteRenderer:
   m_Size: {x: 99.43173, y: 96.80999}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1156617177
@@ -16036,10 +16042,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 1494528931}
-  MiddleRoot1: {fileID: 608178979}
   PlayerLightRing: {fileID: 639101218}
   PlayerVignette: {fileID: 593255307}
-  DayNightTileGrid: {fileID: 578339796}
   WorldClock: 0
   DownTick: 0
   UpTick: 0
@@ -16681,7 +16685,7 @@ SpriteRenderer:
   m_Size: {x: 83.85721, y: 113.21}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1623830646
@@ -19184,7 +19188,7 @@ SpriteRenderer:
   m_Size: {x: 88.85379, y: 98.47}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1940813400
