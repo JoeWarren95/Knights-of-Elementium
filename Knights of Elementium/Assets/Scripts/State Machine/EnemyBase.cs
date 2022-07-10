@@ -19,6 +19,7 @@ public class EnemyBase : MonoBehaviour
     public Animator anim { get; private set; }
     //short for Alive GameObject, GO that's used when enemy is alive
     public GameObject aliveGO { get; private set; }
+
     #endregion
 
     #region private variables
@@ -82,6 +83,7 @@ public class EnemyBase : MonoBehaviour
 
     public virtual bool CheckLedge()
     {
+        Debug.Log("I see a ledge");
         return Physics2D.Raycast(ledgeCheck.position, Vector2.down, enemyData.ledgeCheckDistance, enemyData.whatIsGround);
     }
 
