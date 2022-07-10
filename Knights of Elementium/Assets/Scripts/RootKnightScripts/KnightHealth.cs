@@ -19,20 +19,31 @@ public class KnightHealth : MonoBehaviour
     public int FireResistance;
     public int WaterResistance;
     public int LightningResistance;
+    public GameObject FogWallGrid;
+    public GameObject RootArenaCommencer;
+    public bool KnightDead;
+    public GameObject FogOfWar;
 
     // Start is called before the first frame update
+
     void Start()
     {
         currentHealth = maxHealth;
         Healthbar.SetHealth(currentHealth, maxHealth);
         ItemHasDropped = false;
         Strength = 2;
+        KnightDead = false;
     }
 
     public void Revitalize ()
     {
-        currentHealth = maxHealth;
-        Healthbar.SetHealth(currentHealth, maxHealth);
+        if (KnightDead == false)
+        {
+            currentHealth = maxHealth;
+            Healthbar.SetHealth(currentHealth, maxHealth);
+            FogWallGrid.SetActive(false);
+            RootArenaCommencer.SetActive(true);
+        }
     }
 
     public void TakeDamage(int damage)
@@ -64,6 +75,10 @@ public class KnightHealth : MonoBehaviour
     {
         Debug.Log("Enemy died!");
 
+        FogOfWar.SetActive(false);
+
+        KnightDead = true;
+
         IsDead = true;
 
         animator.SetBool("IsDead", true);
@@ -87,6 +102,10 @@ public class KnightHealth : MonoBehaviour
         transform.GetChild(2).GetComponent<HotZoneCheckKnights>().enabled = false;
 
         transform.GetChild(2).GetComponent<HotZoneCheckKnights>().EnemyDeath(); // deactivates unwanted child script by changing boolean in child script (HotZone re-activating trigger area)
+
+        FogWallGrid.SetActive(false);
+
+        RootArenaCommencer.SetActive(false);
 
         if (ItemHasDropped == false)
         {
