@@ -47,6 +47,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject SpellBook;
     public int CurrencyPenalty;
     public GameObject FogWallGrid;
+    public GameObject FogOfWar;
 
     // Start is called before the first frame update
     void Start()
@@ -195,6 +196,7 @@ public class PlayerHealth : MonoBehaviour
     void Respawn()
     {
         Player.transform.position = new Vector3(-36f, 4f, -1f);
+        //RootKnight.transform.position = new Vector3(-36f, 4f, -1f);
         Player.GetComponent<Rigidbody2D>().velocity = new Vector3(0f, -1.0f, 0f);
         Player.GetComponent<PlayerMovement>().enabled = true;
         Player.GetComponent<CharacterController2D>().enabled = true;
@@ -208,6 +210,7 @@ public class PlayerHealth : MonoBehaviour
         RootKnight.GetComponent<KnightHealth>().Revitalize();
         FogWallGrid.SetActive(false);
         RootKnight.SetActive(false);
+        FogOfWar.SetActive(false);
     }
     void Die() // Everything that happens/is disabled when the player dies
     {

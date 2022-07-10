@@ -9,6 +9,7 @@ public class RootArenaCommencementCollider : MonoBehaviour
     public GameObject FogWallGrid;
     public GameObject RootKnight;
     public GameObject RootArenaCommencer;
+    public GameObject FogOfWar;
 
     private void OnTriggerEnter2D(Collider2D collision) // Player Commences Root Arena Boss Battle
     {
@@ -17,6 +18,7 @@ public class RootArenaCommencementCollider : MonoBehaviour
             FogWallGrid.SetActive(true);
             RootKnight.SetActive(true);
             RootArenaCommencer.SetActive(false);
-        }
+            FogOfWar.SetActive(true);
+}
     }
 }
