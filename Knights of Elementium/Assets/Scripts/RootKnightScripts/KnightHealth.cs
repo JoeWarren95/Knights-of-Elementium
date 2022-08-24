@@ -11,18 +11,29 @@ public class KnightHealth : MonoBehaviour
     public bool CanBeDamaged = true;
     public GameObject Enemy;
     public GameObject ItemDrop;
+    public GameObject CopperCoin;
+    public GameObject SilverCoin;
+    public GameObject GoldCoin;
     public bool ItemHasDropped;
     int currentHealth;
     public int Armor;
     public int Strength;
+    public int Weight;
+    public int StaggerTime;
+    public bool Staggered;
     public int EarthResistance;
+    public int EarthPower;
     public int FireResistance;
+    public int FirePower;
     public int WaterResistance;
+    public int WaterPower;
     public int LightningResistance;
+    public int LightningPower;
     public GameObject FogWallGrid;
     public GameObject RootArenaCommencer;
     public bool KnightDead;
     public GameObject FogOfWar;
+    public GameObject Player;
 
     // Start is called before the first frame update
 
@@ -32,6 +43,16 @@ public class KnightHealth : MonoBehaviour
         Healthbar.SetHealth(currentHealth, maxHealth);
         ItemHasDropped = false;
         Strength = 2;
+        StaggerTime = 2;
+        Weight = 1;
+        EarthPower = 20;
+        FirePower = 0;
+        WaterPower = 0;
+        LightningPower = 0;
+        EarthResistance = 20;
+        FireResistance = -20;
+        WaterResistance = 5;
+        LightningResistance = 5;
         KnightDead = false;
     }
 

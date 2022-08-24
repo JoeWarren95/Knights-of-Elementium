@@ -64,7 +64,7 @@ public class Knight_Behavior : MonoBehaviour
             StartCoroutine(Move());
         }
 
-        if(!InsideofLimits() && !inRange && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_AOEswing"))
+        if(!InsideofLimits() && !inRange && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_RotNova"))
         {
             SelectTarget();
         }
@@ -82,27 +82,27 @@ public class Knight_Behavior : MonoBehaviour
         void EnemyLogic()
     {
         distance = Vector2.Distance(transform.position, target.position);
-
-            if(distance > attackDistance)
-        {
-            StopAttack();
-        }
-        else if(attackDistance >= distance && cooling == false && JustAttacked == false)
+        
+        if(attackDistance > distance && JustAttacked == false && closeattackDistance < distance)
         {
             StartCoroutine(Attack());
+        }
+        else if(closeattackDistance > distance && attackDistance > distance)
+        {
+            RotNova();
         }
        
             if (cooling)
         {
             Cooldown();
             anim.SetBool("Attack", false);
-            anim.SetBool("AOEswing", false);
+            anim.SetBool("RotNova", false);
         }
     }
 
     IEnumerator Move()
         {
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_AOEswing")) // if not playing attack animation
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_RotNova")) // if not playing attack animation
             {
                 anim.SetBool("canWalk", true); // set true that enemy can walk
                 
@@ -125,13 +125,11 @@ public class Knight_Behavior : MonoBehaviour
             yield return new WaitForSeconds(0f);
         }
     }
-    IEnumerator AOEAttack()
+    public void RotNova()
     {
-        attackMode = true; // To check if Enemy can still attack or not
         CantDamage = false;
         anim.SetBool("canWalk", false);
-        anim.SetBool("AOEswing", true); // Plays Enemy Slam Attack Animation that carries collider
-        yield return new WaitForSeconds(0f);
+        anim.SetBool("RotNova", true); // Plays Enemy Slam Attack Animation that carries collider
     }
 
         void Cooldown()
@@ -150,7 +148,7 @@ public class Knight_Behavior : MonoBehaviour
             cooling = false;
             attackMode = false;
             anim.SetBool("Attack", false);
-            anim.SetBool("AOEswing", false);
+            anim.SetBool("RotNova", false);
     }
 
         void StopAttack()
@@ -160,14 +158,14 @@ public class Knight_Behavior : MonoBehaviour
             cooling = false;
             attackMode = false;
             anim.SetBool("Attack", false);
-            anim.SetBool("AOEswing", false);
+            anim.SetBool("RotNova", false);
         }
         }
         void StopAOEAttack()
         {
             cooling = false;
             attackMode = false;
-            anim.SetBool("AOEswing", false);
+            anim.SetBool("RotNova", false);
         }
         
 

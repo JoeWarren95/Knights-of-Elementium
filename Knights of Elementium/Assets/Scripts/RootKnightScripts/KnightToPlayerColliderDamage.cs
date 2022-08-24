@@ -9,12 +9,14 @@ public class KnightToPlayerColliderDamage : MonoBehaviour
     public GameObject FloatingText;
     public int attackDamage; // Base Damage of Enemy from Enemy_behavior
     public int Strength; // Base Stagger Power of Enemy from Enemy_behavior
+    public int Weight; // Base Weight of RootKnight from RootKnight_behavior
     public Rigidbody2D rb;
     
     void Update()
     {
         Strength = ParentEnemy.GetComponent<KnightHealth>().Strength;
         attackDamage = ParentEnemy.GetComponent<Knight_Behavior>().EnemyDamage;
+        Weight = ParentEnemy.GetComponent<KnightHealth>().Weight;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) // Enemy to Player Damage
