@@ -195,8 +195,8 @@ public class PlayerHealth : MonoBehaviour
     }
     void Respawn()
     {
+        RootKnight.transform.position = new Vector3(2.55f, 17.34f, -0.4f);
         Player.transform.position = new Vector3(-36f, 4f, -1f);
-        //RootKnight.transform.position = new Vector3(-36f, 4f, -1f);
         Player.GetComponent<Rigidbody2D>().velocity = new Vector3(0f, -1.0f, 0f);
         Player.GetComponent<PlayerMovement>().enabled = true;
         Player.GetComponent<CharacterController2D>().enabled = true;
