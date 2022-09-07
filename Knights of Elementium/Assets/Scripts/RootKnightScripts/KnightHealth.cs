@@ -34,8 +34,20 @@ public class KnightHealth : MonoBehaviour
     public bool KnightDead;
     public GameObject FogOfWar;
     public GameObject Player;
+    public GameObject HealthCanvas;
+    public float StaggerThreshold;
 
     // Start is called before the first frame update
+
+    public void HealthDisplay()
+    {
+        HealthCanvas.SetActive(true);
+    }
+
+    public void HealthDoNotDisplay()
+    {
+        HealthCanvas.SetActive(false);
+    }
 
     void Start()
     {
@@ -75,16 +87,19 @@ public class KnightHealth : MonoBehaviour
 
             {
                 currentHealth -= damage; // reduce hit points by damage amount
-
-                animator.SetTrigger("Hurt"); // play hurt animation
-
+                StaggerThreshold += damage; //increase StaggerThreshold by damage amount
                 Healthbar.SetHealth(currentHealth, maxHealth);
 
                 CanBeDamaged = false;
 
                 StartCoroutine(DamageCool());
 
-                if (currentHealth <= 0)
+                if (StaggerThreshold >= 100)
+                {
+                    animator.SetTrigger("Hurt"); // play hurt animation
+                    StaggerThreshold = 0;
+                }
+                    if (currentHealth <= 0)
                 {
                     Die();
                 }
@@ -137,6 +152,7 @@ public class KnightHealth : MonoBehaviour
    
     public void Respawn()
     {
+        Enemy.transform.position = new Vector3(2.55f, 17.34f, 1f);
 
         IsDead = false;
 
