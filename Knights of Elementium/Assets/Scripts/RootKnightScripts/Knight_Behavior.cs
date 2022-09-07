@@ -5,6 +5,7 @@ using UnityEngine;
 public class Knight_Behavior : MonoBehaviour
 {
     #region Public Variables
+    public float longattackDistance; // Within this range, enemy will jump after player
     public float attackDistance; //Within this range, enemy will attack player
     public float closeattackDistance; //Within this range, enemy will slam player
     public float moveSpeed;
@@ -26,6 +27,17 @@ public class Knight_Behavior : MonoBehaviour
     public int direction;
     public float AttackCooldown = 3;
     public bool JustAttacked;
+    public int AttackCh;
+    public float Attack1Cooldown;
+    public float Attack2Cooldown;
+    public float Attack3Cooldown;
+    public float Attack4Cooldown;
+    public float Attack5Cooldown;
+    public float Attack6Cooldown;
+    public GameObject RMP;
+    public GameObject RotGeyser;
+    public Transform CastPoint;
+    public Transform Player;
     #endregion
 
     #region Private Variables
@@ -39,6 +51,19 @@ public class Knight_Behavior : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        moveSpeed = 0;
+    }
+
+    public void AttackChoice()
+    {
+        AttackCh = Random.Range(0, 2);
+    }
+
+    public void Awaken()
+    {
+        anim.SetBool("Inactive", false);
+        anim.SetBool("canWalk", true);
+        anim.SetBool("idle", true);
     }
 
     void Awake()
@@ -48,8 +73,74 @@ public class Knight_Behavior : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-        void Update() 
-    {
+    void Update()
+    { 
+        if (Attack1Cooldown > 0)
+        {
+            Attack1Cooldown -= Time.deltaTime;
+            anim.SetBool("Attack", false);
+        }
+        if (Attack2Cooldown > 0)
+        {
+            Attack2Cooldown -= Time.deltaTime;
+            anim.SetBool("GeyserAttack", false);
+        }
+        if (Attack3Cooldown > 0)
+        {
+            Attack3Cooldown -= Time.deltaTime;
+            anim.SetBool("SpinAttack", false);
+        }
+        if (Attack4Cooldown > 0)
+        {
+            Attack4Cooldown -= Time.deltaTime;
+            anim.SetBool("RotMissile", false);
+        }
+        if (Attack5Cooldown > 0)
+        {
+            Attack5Cooldown -= Time.deltaTime;
+            anim.SetBool("RotNova", false);
+        }
+        if (Attack6Cooldown > 0)
+        {
+            Attack6Cooldown -= Time.deltaTime;
+            anim.SetBool("Attack2", false);
+        }
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnightJumpAttack"))
+        {
+            anim.SetBool("Attack2", false);
+            anim.SetBool("Attack", false);
+            anim.SetBool("RotNova", false);
+            anim.SetBool("SpinAttack", false);
+            anim.SetBool("GeyserAttack", false);
+            anim.SetBool("RotMissile", false);
+        }
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1"))
+        {
+            anim.SetBool("Attack2", false);
+            anim.SetBool("Attack", false);
+            anim.SetBool("RotNova", false);
+            anim.SetBool("SpinAttack", false);
+            anim.SetBool("GeyserAttack", false);
+            anim.SetBool("RotMissile", false);
+        }
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_RotNova"))
+        {
+            anim.SetBool("Attack2", false);
+            anim.SetBool("Attack", false);
+            anim.SetBool("RotNova", false);
+            anim.SetBool("SpinAttack", false);
+            anim.SetBool("GeyserAttack", false);
+            anim.SetBool("RotMissile", false);
+        }
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_SpinAttack"))
+        {
+            anim.SetBool("Attack2", false);
+            anim.SetBool("Attack", false);
+            anim.SetBool("RotNova", false);
+            anim.SetBool("SpinAttack", false);
+            anim.SetBool("GeyserAttack", false);
+            anim.SetBool("RotMissile", false);
+        }
         if (JustAttacked == true)
         {
             AttackCooldown -= 1 * Time.deltaTime;
@@ -64,7 +155,7 @@ public class Knight_Behavior : MonoBehaviour
             StartCoroutine(Move());
         }
 
-        if(!InsideofLimits() && !inRange && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_AOEswing"))
+        if(!InsideofLimits() && !inRange && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_RotNova") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_JumpAttack"))
         {
             SelectTarget();
         }
@@ -74,7 +165,7 @@ public class Knight_Behavior : MonoBehaviour
             EnemyLogic();
         }
 
-        if(distance > attackDistance) // stop chasing & resume patrolling if Player is beyond attack distance
+        if(distance > longattackDistance) // stop chasing & resume patrolling if Player is beyond attack distance
         {
             StopAttack();
         }
@@ -83,26 +174,60 @@ public class Knight_Behavior : MonoBehaviour
     {
         distance = Vector2.Distance(transform.position, target.position);
 
-            if(distance > attackDistance)
+        if (attackDistance > distance && closeattackDistance < distance && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnightJumpAttack"))
         {
-            StopAttack();
+            AttackChoice();
+            {
+                if (AttackCh == 0 && Attack2Cooldown <= 0)
+                {
+                    GeyserAttack();
+                }
+                else if (AttackCh == 1 && Attack1Cooldown <= 0)
+                {
+                    StartCoroutine(Attack());
+                }
+            }
         }
-        else if(attackDistance >= distance && cooling == false && JustAttacked == false)
+        if (closeattackDistance > distance && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1"))
         {
-            StartCoroutine(Attack());
+            AttackChoice();
+            {
+                if (AttackCh == 0 && Attack5Cooldown <= 0)
+                {
+                    RotNova();
+                }
+                else if (AttackCh == 1 && Attack3Cooldown <= 0)
+                {
+                    SpinAttack();
+                }
+            }
         }
-       
+        if (distance > attackDistance && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_RotNova") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnightJumpAttack"))
+        {
+            AttackChoice();
+            {
+                if (AttackCh == 0 && Attack4Cooldown <= 0)
+                {
+                    RotMissile();
+                }
+                else if (AttackCh == 1 && Attack6Cooldown <= 0)
+                {
+                    JumpingAttack();
+                }
+            }
+        }
             if (cooling)
         {
             Cooldown();
             anim.SetBool("Attack", false);
-            anim.SetBool("AOEswing", false);
+            anim.SetBool("RotNova", false);
+            anim.SetBool("Attack2", false);
         }
     }
 
     IEnumerator Move()
         {
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_AOEswing")) // if not playing attack animation
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_RotNova") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnightJumpAttack")) // if not playing attack animation
             {
                 anim.SetBool("canWalk", true); // set true that enemy can walk
                 
@@ -115,26 +240,120 @@ public class Knight_Behavior : MonoBehaviour
             }
         }
 
+    public void Attack1CooldownTrigger()
+    {
+        Attack1Cooldown = 5;
+    }
+
+    public void Attack2CooldownTrigger()
+    {
+        Attack2Cooldown = 5;
+    }
+
+    public void Attack3CooldownTrigger()
+    {
+        Attack3Cooldown = 5;
+    }
+
+    public void Attack4CooldownTrigger()
+    {
+        Attack4Cooldown = 5;
+    }
+
+    public void Attack5CooldownTrigger()
+    {
+        Attack5Cooldown = 5;
+    }
+
+    public void Attack6CooldownTrigger()
+    {
+        Attack6Cooldown = 5;
+    }
     IEnumerator Attack()
     {
-        {
             attackMode = true; // To check if Enemy can still attack or not
             CantDamage = false;
             anim.SetBool("canWalk", false);
             anim.SetBool("Attack", true); // Plays Enemy Attack Animation that carries collider
+            anim.SetBool("Attack2", false);
+            anim.SetBool("RotNova", false);
+            anim.SetBool("SpinAttack", false);
+            anim.SetBool("GeyserAttack", false);
+            anim.SetBool("RotMissile", false);
             yield return new WaitForSeconds(0f);
-        }
     }
-    IEnumerator AOEAttack()
+    public void RotNova()
+    {
+        attackMode = true; // To check if Enemy can still attack or not
+        CantDamage = false;
+        anim.SetBool("Attack", false);
+        anim.SetBool("canWalk", false);
+        anim.SetBool("RotNova", true);
+        anim.SetBool("Attack2", false);
+        anim.SetBool("SpinAttack", false);
+        anim.SetBool("GeyserAttack", false);
+        anim.SetBool("RotMissile", false);
+    }
+
+    public void RotMissile()
+    {
+        attackMode = true; // To check if Enemy can still attack or not
+        CantDamage = false;
+        anim.SetBool("Attack", false);
+        anim.SetBool("RotNova", false);
+        anim.SetBool("Attack2", false);
+        anim.SetBool("canWalk", false);
+        anim.SetBool("SpinAttack", false);
+        anim.SetBool("GeyserAttack", false);
+        anim.SetBool("RotMissile", true);
+    }
+
+    public void RotMissileProjectile()
+    {
+        Instantiate(RMP, CastPoint.position, CastPoint.rotation);
+    }
+
+    public void GeyserAttack()
     {
         attackMode = true; // To check if Enemy can still attack or not
         CantDamage = false;
         anim.SetBool("canWalk", false);
-        anim.SetBool("AOEswing", true); // Plays Enemy Slam Attack Animation that carries collider
-        yield return new WaitForSeconds(0f);
+        anim.SetBool("Attack", false);
+        anim.SetBool("GeyserAttack", true);
+        anim.SetBool("Attack2", false);
+        anim.SetBool("SpinAttack", false);
+        anim.SetBool("RotNova", false);
+        anim.SetBool("RotMissile", false);
     }
 
-        void Cooldown()
+    public void SpinAttack()
+    {
+        attackMode = true; // To check if Enemy can still attack or not
+        CantDamage = false;
+        anim.SetBool("SpinAttack", true);
+        anim.SetBool("canWalk", false);
+        anim.SetBool("RotNova", false);
+        anim.SetBool("Attack2", false);
+        anim.SetBool("Attack", false);
+        anim.SetBool("GeyserAttack", false);
+        anim.SetBool("RotMissile", false);
+    }
+
+    public void JumpingAttack()
+    {
+        { 
+            attackMode = true; // To check if Enemy can still attack or not
+            CantDamage = false;
+            anim.SetBool("Attack", false);
+            anim.SetBool("RotNova", false);
+            anim.SetBool("Attack2", true);
+            anim.SetBool("canWalk", false);
+            anim.SetBool("SpinAttack", false);
+            anim.SetBool("GeyserAttack", false);
+            anim.SetBool("RotMissile", false);
+        }
+    }
+    void Cooldown()
         {
             timer -= Time.deltaTime;
 
@@ -150,7 +369,10 @@ public class Knight_Behavior : MonoBehaviour
             cooling = false;
             attackMode = false;
             anim.SetBool("Attack", false);
-            anim.SetBool("AOEswing", false);
+            anim.SetBool("RotNova", false);
+            anim.SetBool("Attack2", false);
+            anim.SetBool("SpinAttack", false);
+            anim.SetBool("GeyserAttack", false);
     }
 
         void StopAttack()
@@ -160,14 +382,17 @@ public class Knight_Behavior : MonoBehaviour
             cooling = false;
             attackMode = false;
             anim.SetBool("Attack", false);
-            anim.SetBool("AOEswing", false);
+            anim.SetBool("RotNova", false);
+            anim.SetBool("Attack2", false);
+            anim.SetBool("SpinAttack", false);
+             anim.SetBool("GeyserAttack", false);
         }
         }
         void StopAOEAttack()
         {
             cooling = false;
             attackMode = false;
-            anim.SetBool("AOEswing", false);
+            anim.SetBool("RotNova", false);
         }
         
 
@@ -202,12 +427,12 @@ public class Knight_Behavior : MonoBehaviour
         public void Flip()
         {
             Vector3 rotation = transform.eulerAngles;
-            if(transform.position.x < target.position.x)
+            if (transform.position.x < target.position.x && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_RotNova") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_JumpAttack"))
             {
                 rotation.y = 180f;
                 direction = 1;
             }
-            else
+            else if (!anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_RotNova") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnight_JumpAttack"))
             {
                 direction = 2;
                 rotation.y = 0f;         
@@ -224,14 +449,52 @@ public class Knight_Behavior : MonoBehaviour
     {
         if (direction == 2)
         {
-            rb.velocity = Vector2.left * KnightDashSpeed;
+            rb.velocity = Vector2.left * 2 * KnightDashSpeed;
             Debug.Log("Dash to left!");
         }
         if (direction == 1)
         {
-            rb.velocity = Vector2.right * KnightDashSpeed;
+            rb.velocity = Vector2.right * 2 * KnightDashSpeed;
             Debug.Log("Dash to left!");
         }
     }
-}
 
+    public void BackDash()
+    {
+        if (direction == 2)
+        {
+            rb.velocity = Vector2.right * 1 * KnightDashSpeed;
+            Debug.Log("Dash to left!");
+        }
+        if (direction == 1)
+        {
+            rb.velocity = Vector2.left * 1 * KnightDashSpeed;
+            Debug.Log("Dash to left!");
+        }
+    }
+
+    public void JumpingDash()
+    {
+        if (direction == 2 && anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnightJumpAttack"))
+        {
+            rb.velocity = Vector2.left * 3 * KnightDashSpeed + Vector2.up * 1 * KnightDashSpeed;
+            Debug.Log("Dash to left!");
+        }
+        else if (direction == 1 && anim.GetCurrentAnimatorStateInfo(0).IsName("RootKnightJumpAttack"))
+        {
+            rb.velocity = Vector2.right * 3 * KnightDashSpeed + Vector2.up * 1 * KnightDashSpeed;
+            Debug.Log("Dash to left!");
+        }
+    }
+
+    public void StandStill()
+    {
+            rb.velocity = Vector2.left * 0 * KnightDashSpeed;
+            rb.velocity = Vector2.right * 0 * KnightDashSpeed;
+    }
+
+    public void GeyserSpawn()
+    {
+        Instantiate(RotGeyser, new Vector2(Player.transform.position.x, 15.70f), Player.rotation);
+    }
+}

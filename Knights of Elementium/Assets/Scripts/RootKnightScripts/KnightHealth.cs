@@ -11,20 +11,43 @@ public class KnightHealth : MonoBehaviour
     public bool CanBeDamaged = true;
     public GameObject Enemy;
     public GameObject ItemDrop;
+    public GameObject CopperCoin;
+    public GameObject SilverCoin;
+    public GameObject GoldCoin;
     public bool ItemHasDropped;
     int currentHealth;
     public int Armor;
     public int Strength;
+    public int Weight;
+    public int StaggerTime;
+    public bool Staggered;
     public int EarthResistance;
+    public int EarthPower;
     public int FireResistance;
+    public int FirePower;
     public int WaterResistance;
+    public int WaterPower;
     public int LightningResistance;
+    public int LightningPower;
     public GameObject FogWallGrid;
     public GameObject RootArenaCommencer;
     public bool KnightDead;
     public GameObject FogOfWar;
+    public GameObject Player;
+    public GameObject HealthCanvas;
+    public float StaggerThreshold;
 
     // Start is called before the first frame update
+
+    public void HealthDisplay()
+    {
+        HealthCanvas.SetActive(true);
+    }
+
+    public void HealthDoNotDisplay()
+    {
+        HealthCanvas.SetActive(false);
+    }
 
     void Start()
     {
@@ -32,6 +55,16 @@ public class KnightHealth : MonoBehaviour
         Healthbar.SetHealth(currentHealth, maxHealth);
         ItemHasDropped = false;
         Strength = 2;
+        StaggerTime = 2;
+        Weight = 1;
+        EarthPower = 20;
+        FirePower = 0;
+        WaterPower = 0;
+        LightningPower = 0;
+        EarthResistance = 20;
+        FireResistance = -20;
+        WaterResistance = 5;
+        LightningResistance = 5;
         KnightDead = false;
     }
 
@@ -54,16 +87,19 @@ public class KnightHealth : MonoBehaviour
 
             {
                 currentHealth -= damage; // reduce hit points by damage amount
-
-                animator.SetTrigger("Hurt"); // play hurt animation
-
+                StaggerThreshold += damage; //increase StaggerThreshold by damage amount
                 Healthbar.SetHealth(currentHealth, maxHealth);
 
                 CanBeDamaged = false;
 
                 StartCoroutine(DamageCool());
 
-                if (currentHealth <= 0)
+                if (StaggerThreshold >= 100)
+                {
+                    animator.SetTrigger("Hurt"); // play hurt animation
+                    StaggerThreshold = 0;
+                }
+                    if (currentHealth <= 0)
                 {
                     Die();
                 }
@@ -116,6 +152,7 @@ public class KnightHealth : MonoBehaviour
    
     public void Respawn()
     {
+        Enemy.transform.position = new Vector3(2.55f, 17.34f, 1f);
 
         IsDead = false;
 

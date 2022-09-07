@@ -18,6 +18,8 @@ public class TriggerAreaCheckKnights : MonoBehaviour {
             gameObject.SetActive(false);
             enemyParent.target = collider.transform;
             enemyParent.inRange = true;
+            enemyParent.Awaken();
+            enemyParent.moveSpeed = 2;
             enemyParent.hotZone.SetActive(true);
         }
     }
