@@ -346,6 +346,14 @@ public void Stagger()
         StaggerTime = 1;
     }
 
+public void StandStill()
+    {
+        rb.velocity = Vector2.left * 0;
+        rb.velocity = Vector2.right * 0;
+        Staggered = true;
+    }
+
+
     void FixedUpdate()
     {
         {
