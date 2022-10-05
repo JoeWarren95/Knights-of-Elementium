@@ -38,6 +38,7 @@ public class Knight_Behavior : MonoBehaviour
     public GameObject RotGeyser;
     public Transform CastPoint;
     public Transform Player;
+    public AudioSource MaceSmash;
     #endregion
 
     #region Private Variables
@@ -457,6 +458,11 @@ public class Knight_Behavior : MonoBehaviour
             rb.velocity = Vector2.right * 2 * KnightDashSpeed;
             Debug.Log("Dash to left!");
         }
+    }
+        
+    public void MaceSmashSound()
+    {
+        MaceSmash.Play();
     }
 
     public void BackDash()
